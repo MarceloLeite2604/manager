@@ -1,41 +1,30 @@
 package org.marceloleite.manager.model;
 
 import java.util.List;
+import java.util.Map;
+
+import org.marceloleite.manager.model.job.Job;
+import org.marceloleite.manager.model.job.JobsCreator;
 
 public class Building {
 
-	private PlotGroup occupiedPlotGroup;
-
-	private PopulationDensity populationDensity;
-
-	private BuildingType buildingType;
+	private Lot lot;
 
 	private Blueprint blueprint;
 
 	private PersonGroup inhabitants;
 
-	private List<Job> jobs;
+	private Map<SchoolingLevel, Job> jobs;
 
-	public Building(PlotGroup occupiedPlotGroup, PopulationDensity populationDensity, BuildingType buildingType,
-			Blueprint blueprint) {
+	public Building(Lot lot, PopulationDensity populationDensity, BuildingType buildingType, Blueprint blueprint) {
 		super();
-		this.occupiedPlotGroup = occupiedPlotGroup;
-		this.populationDensity = populationDensity;
-		this.buildingType = buildingType;
+		this.lot = lot;
 		this.blueprint = blueprint;
-		this.jobs = createJobs(blueprint);
+		this.jobs = new JobsCreator(blueprint).create();
 	}
 
-	public PlotGroup getOccupiedPlotGroup() {
-		return occupiedPlotGroup;
-	}
-
-	public PopulationDensity getPopulationDensity() {
-		return populationDensity;
-	}
-
-	public BuildingType getBuildingType() {
-		return buildingType;
+	public Lot getLot() {
+		return lot;
 	}
 
 	public Blueprint getBlueprint() {
@@ -46,15 +35,8 @@ public class Building {
 		return inhabitants;
 	}
 
-	public List<Job> getJobs() {
+	public Map<SchoolingLevel, Job> getJobs() {
 		return jobs;
 	}
-	
-	private List<Job> createJobs(Blueprint blueprint) {
-		List<Job> jobs;
-		return null;
-	}
-
-	
 
 }

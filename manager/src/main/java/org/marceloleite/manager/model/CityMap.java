@@ -1,5 +1,7 @@
 package org.marceloleite.manager.model;
 
+import org.marceloleite.manager.model.plot.PlotGroup;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.marceloleite.manager.model.Blueprint;
 import org.marceloleite.manager.model.BlueprintName;
-import org.marceloleite.manager.model.JobGenerator;
 import org.marceloleite.manager.model.PopulationDensity;
 import org.marceloleite.manager.model.Resource;
 import org.marceloleite.manager.model.SchoolingLevel;
 import org.marceloleite.manager.model.Terrain;
+import org.marceloleite.manager.model.job.JobOportunities;
 import org.marceloleite.manager.validator.ObjectNotNullValidator;
 import org.marceloleite.manager.validator.fordouble.DoubleGreaterThanZeroValidator;
 import org.marceloleite.manager.validator.forinteger.IntegerGreaterThanZeroValidator;
@@ -28,7 +28,7 @@ public class BlueprintBuilder implements Builder<Blueprint> {
 
 	private int maxInhabitants;
 
-	private Map<SchoolingLevel, JobGenerator> jobOportunities;
+	private Map<SchoolingLevel, JobOportunities> jobOportunities;
 
 	public BlueprintBuilder() {
 		consumptions = new EnumMap<>(Resource.class);
@@ -89,7 +89,7 @@ public class BlueprintBuilder implements Builder<Blueprint> {
 		new ObjectNotNullValidator("schooling level").validate(schoolingLevel);
 		new IntegerGreaterThanZeroValidator("quantity").validate(quantity);
 		new DoubleGreaterThanZeroValidator("payment").validate(payment);
-		this.jobOportunities.put(schoolingLevel, new JobGenerator(quantity, schoolingLevel, payment));
+		this.jobOportunities.put(schoolingLevel, new JobOportunities(quantity, schoolingLevel, payment));
 		return this;
 	}
 

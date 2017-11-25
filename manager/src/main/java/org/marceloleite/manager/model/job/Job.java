@@ -1,4 +1,7 @@
-package org.marceloleite.manager.model;
+package org.marceloleite.manager.model.job;
+
+import org.marceloleite.manager.model.PersonGroup;
+import org.marceloleite.manager.model.SchoolingLevel;
 
 public class Job {
 
@@ -18,8 +21,8 @@ public class Job {
 		this.employees = new PersonGroup(maxEmployees);
 	}
 
-	public Job(JobGenerator jobGenerator) {
-		this(jobGenerator.getSchoolingLevel(), jobGenerator.getPayment(), jobGenerator.getAmount());
+	public Job(JobOportunities jobOportunities) {
+		this(jobOportunities.getSchoolingLevel(), jobOportunities.getPayment(), jobOportunities.getAmount());
 	}
 
 	public SchoolingLevel getRequiredSchoolingLevel() {

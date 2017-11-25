@@ -1,9 +1,12 @@
-package org.marceloleite.manager.model;
+package org.marceloleite.manager.model.plot;
 
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.marceloleite.manager.model.Position;
+import org.marceloleite.manager.model.Terrain;
 
 public class PlotGroup {
 
@@ -48,7 +51,7 @@ public class PlotGroup {
 	}
 
 	private Position retrieveInitialPosition(Map<Position, Plot> plots) {
-		Position minorPosition = retrieveMinorPosition(plots);
+		Position minorPosition = retrieveMinorPosition();
 		return minorPosition;
 	}
 
@@ -57,14 +60,14 @@ public class PlotGroup {
 		if (this.initialPosition != null) {
 			initialPosition = this.initialPosition;
 		} else {
-			initialPosition = retrieveMinorPosition(plots);
+			initialPosition = retrieveMinorPosition();
 		}
-		initialPosition = retrieveMinorPosition(plots);
-		Position majorPosition = retrieveMajorPosition(plots);
+		initialPosition = retrieveMinorPosition();
+		Position majorPosition = retrieveMajorPosition();
 		return new Dimension(majorPosition.x - initialPosition.x, majorPosition.y - initialPosition.y);
 	}
 
-	private Position retrieveMinorPosition(Map<Position, Plot> plots) {
+	public Position retrieveMinorPosition() {
 		Position minorPosition = null;
 		Set<Position> plotPositions = plots.keySet();
 		for (Position plotPosition : plotPositions) {
@@ -79,7 +82,7 @@ public class PlotGroup {
 		return minorPosition;
 	}
 
-	private Position retrieveMajorPosition(Map<Position, Plot> plots) {
+	public Position retrieveMajorPosition() {
 		Position majorPosition = null;
 		Set<Position> plotPositions = plots.keySet();
 		for (Position plotPosition : plotPositions) {
@@ -92,6 +95,34 @@ public class PlotGroup {
 			}
 		}
 		return majorPosition;
+	}
+
+	public boolean isVacant() {
+		return (plots.entrySet().stream().filter(entry -> entry.getValue().isOccupied()).count() == 0l);
+	}
+
+	public PlotGroup retrieveSubPlot(Position position, Dimension dimension) {
+		PlotGroup plotGroup = new PlotGroup(position, dimension);
+		new ExistsPlotValidator(this.toString(), plotGroup.toString()).validate(this, plotGroup);
+		Map<Position, Plot> plotsRetrieved = new HashMap<>();
+		for (int xPosition = position.x; xPosition < (position.x + dimension.getWidth()); xPosition++) {
+			for (int yPosition = position.y; yPosition < (position.y + dimension.getHeight()); yPosition++) {
+				Position positionToRetrieve = new Position(xPosition, yPosition);
+				plotsRetrieved.put(positionToRetrieve, plotsRetrieved.get(positionToRetrieve));
+			}
+		}
+		return new PlotGroup(plotsRetrieved);
+	}
+
+	/*
+	 * public boolean exists(PlotGroup plotGroup) { return
+	 * (plotGroup.retrieveMinorPosition().compareTo(retrieveMinorPosition()) >= 0 &&
+	 * plotGroup.retrieveMajorPosition().compareTo(retrieveMajorPosition()) >= 0); }
+	 */
+
+	@Override
+	public String toString() {
+		return initialPosition.toString() + dimension.toString();
 	}
 
 }

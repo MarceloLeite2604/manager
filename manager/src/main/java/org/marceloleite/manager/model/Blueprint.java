@@ -1,6 +1,9 @@
 package org.marceloleite.manager.model;
 
+import java.awt.Dimension;
 import java.util.Map;
+
+import org.marceloleite.manager.model.job.JobOportunities;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Blueprint {
 
 	private BlueprintName name;
+
+	private Dimension dimension;
 
 	private Terrain terrain;
 
@@ -19,11 +24,11 @@ public class Blueprint {
 
 	private int maxInhabitants;
 
-	private Map<SchoolingLevel, JobGenerator> jobOportunities;
+	private Map<SchoolingLevel, JobOportunities> jobOportunities;
 
-	public Blueprint(BlueprintName name, Terrain terrain, PopulationDensity populationDensity,
+	public Blueprint(BlueprintName name, Dimension dimension, Terrain terrain, PopulationDensity populationDensity,
 			Map<Resource, Integer> consumptions, Map<Resource, Integer> generations, int maxInhabitants,
-			Map<SchoolingLevel, JobGenerator> jobOportunities) {
+			Map<SchoolingLevel, JobOportunities> jobOportunities) {
 		super();
 		this.name = name;
 		this.terrain = terrain;
@@ -58,8 +63,12 @@ public class Blueprint {
 		return maxInhabitants;
 	}
 
-	public Map<SchoolingLevel, JobGenerator> getJobOportunities() {
+	public Map<SchoolingLevel, JobOportunities> getJobOportunities() {
 		return jobOportunities;
+	}
+
+	public Dimension getDimension() {
+		return dimension;
 	}
 
 	@Override

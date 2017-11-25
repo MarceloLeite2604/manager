@@ -6,6 +6,5 @@ public class Main {
 		Manager manager = new Manager();
 
 		/* System.out.println(manager.getCityMap()); */
-		
 	}
 }

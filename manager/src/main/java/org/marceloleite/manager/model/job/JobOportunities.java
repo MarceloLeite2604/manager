@@ -1,6 +1,8 @@
-package org.marceloleite.manager.model;
+package org.marceloleite.manager.model.job;
 
-public class JobGenerator {
+import org.marceloleite.manager.model.SchoolingLevel;
+
+public class JobOportunities {
 
 	private int quantity;
 
@@ -8,7 +10,7 @@ public class JobGenerator {
 
 	private double payment;
 
-	public JobGenerator(int quantity, SchoolingLevel schoolingLevel, double payment) {
+	public JobOportunities(int quantity, SchoolingLevel schoolingLevel, double payment) {
 		super();
 		this.quantity = quantity;
 		this.schoolingLevel = schoolingLevel;
