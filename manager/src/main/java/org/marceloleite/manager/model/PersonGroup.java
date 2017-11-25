@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class PersonGroup {
 
-	private Map<Integer, Person> persons;
+	private Map<Long, Person> persons;
 
 	private int max;
 
@@ -15,7 +15,7 @@ public class PersonGroup {
 		this.persons = new HashMap<>();
 	}
 
-	public Map<Integer, Person> getPersons() {
+	public Map<Long, Person> getPersons() {
 		return persons;
 	}
 

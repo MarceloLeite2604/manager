@@ -1,5 +1,8 @@
 package org.marceloleite.manager.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class CityMap {
 
 	private String name;
@@ -25,5 +28,15 @@ public class CityMap {
 
 	public MapSize getMapSize() {
 		return mapSize;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		try {
+			return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

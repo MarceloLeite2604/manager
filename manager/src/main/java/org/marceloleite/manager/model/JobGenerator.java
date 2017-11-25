@@ -2,21 +2,21 @@ package org.marceloleite.manager.model;
 
 public class JobGenerator {
 
-	private int amount;
+	private int quantity;
 
 	private SchoolingLevel schoolingLevel;
 
 	private double payment;
 
-	public JobGenerator(int amount, SchoolingLevel schoolingLevel, double payment) {
+	public JobGenerator(int quantity, SchoolingLevel schoolingLevel, double payment) {
 		super();
-		this.amount = amount;
+		this.quantity = quantity;
 		this.schoolingLevel = schoolingLevel;
 		this.payment = payment;
 	}
 
 	public int getAmount() {
-		return amount;
+		return quantity;
 	}
 
 	public SchoolingLevel getSchoolingLevel() {
