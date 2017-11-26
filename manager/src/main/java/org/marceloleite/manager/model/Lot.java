@@ -5,8 +5,10 @@ import org.marceloleite.manager.model.plot.PlotGroup;
 public class Lot {
 
 	private PlotGroup plotGroup;
-	
+
 	private BuildingType buildingType;
+
+	private Building building;
 
 	public Lot(PlotGroup plotGroup, BuildingType buildingType) {
 		super();
@@ -21,5 +23,13 @@ public class Lot {
 
 	public BuildingType getBuildingType() {
 		return buildingType;
+	}
+
+	public void setBuilding(Building building) {
+		this.building = building;
+	}
+
+	public Building getBuilding() {
+		return building;
 	}
 }

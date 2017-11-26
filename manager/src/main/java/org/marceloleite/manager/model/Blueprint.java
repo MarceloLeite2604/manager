@@ -1,6 +1,6 @@
 package org.marceloleite.manager.model;
 
-import java.awt.Dimension;
+import org.marceloleite.manager.model.Dimension;
 import java.util.Map;
 
 import org.marceloleite.manager.model.job.JobOportunities;
@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Blueprint {
 
 	private BlueprintName name;
+
+	private BuildingType buildingType;
 
 	private Dimension dimension;
 
@@ -26,21 +28,30 @@ public class Blueprint {
 
 	private Map<SchoolingLevel, JobOportunities> jobOportunities;
 
-	public Blueprint(BlueprintName name, Dimension dimension, Terrain terrain, PopulationDensity populationDensity,
-			Map<Resource, Integer> consumptions, Map<Resource, Integer> generations, int maxInhabitants,
-			Map<SchoolingLevel, JobOportunities> jobOportunities) {
+	private double costToBuild;
+
+	public Blueprint(BlueprintName name, BuildingType buildingType, Dimension dimension, Terrain terrain,
+			PopulationDensity populationDensity, Map<Resource, Integer> consumptions,
+			Map<Resource, Integer> generations, int maxInhabitants,
+			Map<SchoolingLevel, JobOportunities> jobOportunities, double costToBuild) {
 		super();
 		this.name = name;
+		this.buildingType = buildingType;
 		this.terrain = terrain;
 		this.populationDensity = populationDensity;
 		this.consumptions = consumptions;
 		this.generations = generations;
 		this.maxInhabitants = maxInhabitants;
 		this.jobOportunities = jobOportunities;
+		this.costToBuild = costToBuild;
 	}
 
 	public BlueprintName getName() {
 		return name;
+	}
+
+	public BuildingType getBuildingType() {
+		return buildingType;
 	}
 
 	public Terrain getTerrain() {
@@ -71,9 +82,12 @@ public class Blueprint {
 		return dimension;
 	}
 
+	public double getCostToBuild() {
+		return costToBuild;
+	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		try {
 			return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
 		} catch (JsonProcessingException e) {

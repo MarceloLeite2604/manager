@@ -1,6 +1,5 @@
 package org.marceloleite.manager.model.plot;
 
-import org.marceloleite.manager.model.Lot;
 import org.marceloleite.manager.model.Position;
 import org.marceloleite.manager.model.Terrain;
 
@@ -10,7 +9,7 @@ public class Plot {
 
 	private Terrain terrain;
 
-	private Lot lot;
+	private boolean occupied;
 
 	public Plot(Position position, Terrain terrain) {
 		super();
@@ -26,15 +25,11 @@ public class Plot {
 		return terrain;
 	}
 
-	public void setLot(Lot lot) {
-		this.lot = lot;
-	}
-
-	public Lot getLot() {
-		return lot;
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
 	}
 
 	public boolean isOccupied() {
-		return lot != null;
+		return occupied;
 	}
 }

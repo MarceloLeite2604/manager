@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.marceloleite.manager.model.Blueprint;
 import org.marceloleite.manager.model.BlueprintName;
+import org.marceloleite.manager.model.BuildingType;
+import org.marceloleite.manager.model.Dimension;
 import org.marceloleite.manager.model.PopulationDensity;
 import org.marceloleite.manager.model.Resource;
 import org.marceloleite.manager.model.SchoolingLevel;
@@ -18,6 +20,10 @@ public class BlueprintBuilder implements Builder<Blueprint> {
 
 	private BlueprintName name;
 
+	private BuildingType buildingType;
+
+	private Dimension dimension;
+
 	private Terrain terrain;
 
 	private PopulationDensity populationDensity;
@@ -30,11 +36,15 @@ public class BlueprintBuilder implements Builder<Blueprint> {
 
 	private Map<SchoolingLevel, JobOportunities> jobOportunities;
 
+	private double costToBuild;
+
 	public BlueprintBuilder() {
+		buildingType = BuildingType.NONE;
 		consumptions = new EnumMap<>(Resource.class);
 		generations = new EnumMap<>(Resource.class);
 		jobOportunities = new EnumMap<>(SchoolingLevel.class);
 		maxInhabitants = 0;
+		costToBuild = 0.0;
 	}
 
 	public BlueprintBuilder name(BlueprintName name) {
@@ -42,6 +52,18 @@ public class BlueprintBuilder implements Builder<Blueprint> {
 
 		this.name = name;
 
+		return this;
+	}
+
+	public BlueprintBuilder ofBuildingType(BuildingType buildingType) {
+		new ObjectNotNullValidator("building type").validate(buildingType);
+		this.buildingType = buildingType;
+		return this;
+	}
+
+	public BlueprintBuilder ofDimension(Dimension dimension) {
+		new ObjectNotNullValidator("dimension").validate(dimension);
+		this.dimension = dimension;
 		return this;
 	}
 
@@ -95,8 +117,8 @@ public class BlueprintBuilder implements Builder<Blueprint> {
 
 	@Override
 	public Blueprint build() {
-		return new Blueprint(name, terrain, populationDensity, consumptions, generations, maxInhabitants,
-				jobOportunities);
+		return new Blueprint(name, buildingType, dimension, terrain, populationDensity, consumptions, generations,
+				maxInhabitants, jobOportunities, costToBuild);
 	}
 
 }

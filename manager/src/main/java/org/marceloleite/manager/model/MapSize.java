@@ -1,6 +1,6 @@
 package org.marceloleite.manager.model;
 
-import java.awt.Dimension;
+import org.marceloleite.manager.model.Dimension;
 
 public enum MapSize {
 	SMALL(25, 25), MEDIUM(50, 50), LARGE(75, 75);

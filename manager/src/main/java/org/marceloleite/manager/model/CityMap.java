@@ -1,5 +1,8 @@
 package org.marceloleite.manager.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.marceloleite.manager.model.plot.PlotGroup;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,11 +16,14 @@ public class CityMap {
 
 	private PlotGroup plotGroup;
 
+	private List<Lot> lots;
+
 	public CityMap(String name, MapSize mapSize) {
 		super();
 		this.name = name;
 		this.mapSize = mapSize;
 		this.plotGroup = new PlotGroup(new Position(0, 0), mapSize.getDimension());
+		this.lots = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -40,5 +46,9 @@ public class CityMap {
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public List<Lot> getLots() {
+		return lots;
 	}
 }

@@ -1,10 +1,10 @@
 package org.marceloleite.manager.model.plot;
 
-import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.marceloleite.manager.model.Dimension;
 import org.marceloleite.manager.model.Position;
 import org.marceloleite.manager.model.Terrain;
 
@@ -38,11 +38,16 @@ public class PlotGroup {
 		return plots;
 	}
 
+	public Position getInitialPosition() {
+		return initialPosition;
+	}
+
 	private Map<Position, Plot> createPlots(Position initialPosition, Dimension dimension) {
 		Map<Position, Plot> plots = new HashMap<>();
 		for (int xPosition = 0; xPosition < dimension.height; xPosition++) {
 			for (int yPosition = 0; yPosition < dimension.width; yPosition++) {
-				Position position = new Position(initialPosition.x + xPosition, initialPosition.y + yPosition);
+				Position position = new Position(initialPosition.getX() + xPosition,
+						initialPosition.getY() + yPosition);
 				/* TODO: How to define terrain type. */
 				plots.put(position, new Plot(position, Terrain.LAND));
 			}
@@ -56,15 +61,8 @@ public class PlotGroup {
 	}
 
 	private Dimension retrieveDimension(Map<Position, Plot> plots) {
-		Position initialPosition;
-		if (this.initialPosition != null) {
-			initialPosition = this.initialPosition;
-		} else {
-			initialPosition = retrieveMinorPosition();
-		}
-		initialPosition = retrieveMinorPosition();
 		Position majorPosition = retrieveMajorPosition();
-		return new Dimension(majorPosition.x - initialPosition.x, majorPosition.y - initialPosition.y);
+		return new Dimension(majorPosition.getX() + 1, majorPosition.getY() + 1);
 	}
 
 	public Position retrieveMinorPosition() {
@@ -74,7 +72,7 @@ public class PlotGroup {
 			if (minorPosition == null) {
 				minorPosition = plotPosition;
 			} else {
-				if (minorPosition.compareTo(plotPosition) < 0) {
+				if (plotPosition.compareTo(minorPosition) < 0) {
 					minorPosition = plotPosition;
 				}
 			}
@@ -89,7 +87,7 @@ public class PlotGroup {
 			if (majorPosition == null) {
 				majorPosition = plotPosition;
 			} else {
-				if (majorPosition.compareTo(plotPosition) > 0) {
+				if (plotPosition.compareTo(majorPosition) > 0) {
 					majorPosition = plotPosition;
 				}
 			}
@@ -97,28 +95,22 @@ public class PlotGroup {
 		return majorPosition;
 	}
 
-	public boolean isVacant() {
-		return (plots.entrySet().stream().filter(entry -> entry.getValue().isOccupied()).count() == 0l);
+	public boolean isOccupied() {
+		return (plots.values().stream().filter(Plot::isOccupied).count() > 0l);
 	}
 
 	public PlotGroup retrieveSubPlot(Position position, Dimension dimension) {
 		PlotGroup plotGroup = new PlotGroup(position, dimension);
-		new ExistsPlotValidator(this.toString(), plotGroup.toString()).validate(this, plotGroup);
+		new ExistsPlotValidator().validate(plotGroup, this);
 		Map<Position, Plot> plotsRetrieved = new HashMap<>();
-		for (int xPosition = position.x; xPosition < (position.x + dimension.getWidth()); xPosition++) {
-			for (int yPosition = position.y; yPosition < (position.y + dimension.getHeight()); yPosition++) {
+		for (int xPosition = position.getX(); xPosition < (position.getX() + dimension.getWidth()); xPosition++) {
+			for (int yPosition = position.getY(); yPosition < (position.getY() + dimension.getHeight()); yPosition++) {
 				Position positionToRetrieve = new Position(xPosition, yPosition);
-				plotsRetrieved.put(positionToRetrieve, plotsRetrieved.get(positionToRetrieve));
+				plotsRetrieved.put(positionToRetrieve, plots.get(positionToRetrieve));
 			}
 		}
 		return new PlotGroup(plotsRetrieved);
 	}
-
-	/*
-	 * public boolean exists(PlotGroup plotGroup) { return
-	 * (plotGroup.retrieveMinorPosition().compareTo(retrieveMinorPosition()) >= 0 &&
-	 * plotGroup.retrieveMajorPosition().compareTo(retrieveMajorPosition()) >= 0); }
-	 */
 
 	@Override
 	public String toString() {

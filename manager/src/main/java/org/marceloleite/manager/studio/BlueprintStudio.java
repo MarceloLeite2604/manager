@@ -6,6 +6,7 @@ import java.util.List;
 import org.marceloleite.manager.builder.BlueprintBuilder;
 import org.marceloleite.manager.model.Blueprint;
 import org.marceloleite.manager.model.BlueprintName;
+import org.marceloleite.manager.model.BuildingType;
 import org.marceloleite.manager.model.PopulationDensity;
 import org.marceloleite.manager.model.Resource;
 import org.marceloleite.manager.model.SchoolingLevel;
@@ -20,6 +21,7 @@ public class BlueprintStudio implements Studio<Blueprint> {
 		blueprints.add(new BlueprintBuilder()
 				.name(BlueprintName.TRAILER)
 				.forTerrain(Terrain.LAND)
+				.ofBuildingType(BuildingType.RESIDENTIAL)
 				.ofPopulationDensity(PopulationDensity.SMALL)
 				.consumes(Resource.ELECTRICITY, 10)
 				.consumes(Resource.WATER, 20)
@@ -29,6 +31,7 @@ public class BlueprintStudio implements Studio<Blueprint> {
 		blueprints.add(new BlueprintBuilder()
 				.name(BlueprintName.SMALL_STORE)
 				.forTerrain(Terrain.LAND)
+				.ofBuildingType(BuildingType.COMMERCIAL)
 				.ofPopulationDensity(PopulationDensity.SMALL)
 				.consumes(Resource.ELECTRICITY, 20)
 				.consumes(Resource.WATER, 40)
