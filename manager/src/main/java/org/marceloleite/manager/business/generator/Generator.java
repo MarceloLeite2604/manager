@@ -1,4 +1,4 @@
-package org.marceloleite.manager.generator;
+package org.marceloleite.manager.business.generator;
 
 public interface Generator<T> {
 

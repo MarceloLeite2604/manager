@@ -1,9 +1,9 @@
-package org.marceloleite.manager.validator.string;
+package org.marceloleite.manager.business.validator.string;
 
 import java.text.MessageFormat;
 
-import org.marceloleite.manager.validator.ObjectNotNullValidator;
-import org.marceloleite.manager.validator.Validator;
+import org.marceloleite.manager.business.validator.ObjectNotNullValidator;
+import org.marceloleite.manager.business.validator.Validator;
 
 public class StringValidator implements Validator<String> {
 

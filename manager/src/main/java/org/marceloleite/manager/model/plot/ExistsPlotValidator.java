@@ -2,7 +2,7 @@ package org.marceloleite.manager.model.plot;
 
 import java.text.MessageFormat;
 
-import org.marceloleite.manager.validator.BinaryValidator;
+import org.marceloleite.manager.business.validator.BinaryValidator;
 
 public class ExistsPlotValidator implements BinaryValidator<PlotGroup, PlotGroup> {
 

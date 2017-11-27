@@ -32,4 +32,5 @@ public class Lot {
 	public Building getBuilding() {
 		return building;
 	}
+	
 }

@@ -1,8 +1,8 @@
-package org.marceloleite.manager.validator.fordouble;
+package org.marceloleite.manager.business.validator.fordouble;
 
 import java.text.MessageFormat;
 
-import org.marceloleite.manager.validator.Validator;
+import org.marceloleite.manager.business.validator.Validator;
 
 public class DoubleGreaterThanZeroValidator implements Validator<Double> {
 

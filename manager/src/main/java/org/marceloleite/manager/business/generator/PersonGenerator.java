@@ -1,4 +1,4 @@
-package org.marceloleite.manager.generator;
+package org.marceloleite.manager.business.generator;
 
 import org.marceloleite.manager.model.Person;
 import org.marceloleite.manager.model.SchoolingLevel;

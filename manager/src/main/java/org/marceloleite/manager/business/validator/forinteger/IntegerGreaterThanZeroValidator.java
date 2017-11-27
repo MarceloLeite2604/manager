@@ -1,8 +1,8 @@
-package org.marceloleite.manager.validator.forinteger;
+package org.marceloleite.manager.business.validator.forinteger;
 
 import java.text.MessageFormat;
 
-import org.marceloleite.manager.validator.Validator;
+import org.marceloleite.manager.business.validator.Validator;
 
 public class IntegerGreaterThanZeroValidator implements Validator<Integer> {
 

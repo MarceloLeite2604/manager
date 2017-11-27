@@ -3,6 +3,9 @@ package org.marceloleite.manager.builder;
 import java.util.EnumMap;
 import java.util.Map;
 
+import org.marceloleite.manager.business.validator.ObjectNotNullValidator;
+import org.marceloleite.manager.business.validator.fordouble.DoubleGreaterThanZeroValidator;
+import org.marceloleite.manager.business.validator.forinteger.IntegerGreaterThanZeroValidator;
 import org.marceloleite.manager.model.Blueprint;
 import org.marceloleite.manager.model.BlueprintName;
 import org.marceloleite.manager.model.BuildingType;
@@ -12,9 +15,6 @@ import org.marceloleite.manager.model.Resource;
 import org.marceloleite.manager.model.SchoolingLevel;
 import org.marceloleite.manager.model.Terrain;
 import org.marceloleite.manager.model.job.JobOportunities;
-import org.marceloleite.manager.validator.ObjectNotNullValidator;
-import org.marceloleite.manager.validator.fordouble.DoubleGreaterThanZeroValidator;
-import org.marceloleite.manager.validator.forinteger.IntegerGreaterThanZeroValidator;
 
 public class BlueprintBuilder implements Builder<Blueprint> {
 

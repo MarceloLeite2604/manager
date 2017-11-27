@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import org.marceloleite.manager.builder.BudgetBuilder;
 import org.marceloleite.manager.business.BudgetBO;
 import org.marceloleite.manager.business.CityMapBO;
 import org.marceloleite.manager.model.Blueprint;
@@ -37,7 +38,7 @@ public class Manager {
 	}
 
 	private Budget createBudget() {
-		return new Budget(10000.0);
+		return new BudgetBuilder().withDefaultBalance().withDefaultTaxRate().build();
 	}
 
 	private Map<BlueprintName, Blueprint> createBlueprints() {
@@ -79,7 +80,6 @@ public class Manager {
 		Building building = new Building(blueprint);
 		lot.setBuilding(building);
 		new PlotGroupBO().occupy(lot.getPlotGroup());
-		
-		
+
 	}
 }

@@ -1,4 +1,4 @@
-package org.marceloleite.manager.validator;
+package org.marceloleite.manager.business.validator;
 
 public interface BinaryValidator<T1, T2> {
 	

@@ -1,4 +1,4 @@
-package org.marceloleite.manager.validator;
+package org.marceloleite.manager.business.validator;
 
 import java.text.MessageFormat;
 
