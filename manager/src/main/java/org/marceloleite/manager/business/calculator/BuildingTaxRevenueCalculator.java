@@ -1,8 +1,8 @@
 package org.marceloleite.manager.business.calculator;
 
-import org.marceloleite.management.lot.LotType;
+import org.marceloleite.manager.model.BuildingType;
 
 public interface BuildingTaxRevenueCalculator extends Calculator {
 
-		public LotType forLotType();
+		public BuildingType forBuildingType();
 }

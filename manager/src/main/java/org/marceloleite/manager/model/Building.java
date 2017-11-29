@@ -17,6 +17,7 @@ public class Building {
 		super();
 		this.blueprint = blueprint;
 		this.jobs = new JobsCreator(blueprint).create();
+		this.inhabitants = new PersonGroup(blueprint.getMaxInhabitants());
 	}
 
 	public Blueprint getBlueprint() {

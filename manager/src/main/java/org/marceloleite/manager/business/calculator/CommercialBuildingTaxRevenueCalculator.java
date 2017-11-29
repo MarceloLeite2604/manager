@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.marceloleite.management.budget.TaxRateKey;
-import org.marceloleite.management.building.Building;
-import org.marceloleite.management.job.Job;
-import org.marceloleite.management.job.JobOportunity;
-import org.marceloleite.management.lot.PopulationDensity;
-import org.marceloleite.management.lot.LotType;
-import org.marceloleite.management.person.Person;
+import org.marceloleite.manager.model.Blueprint;
+import org.marceloleite.manager.model.Building;
+import org.marceloleite.manager.model.BuildingType;
+import org.marceloleite.manager.model.Person;
+import org.marceloleite.manager.model.PopulationDensity;
+import org.marceloleite.manager.model.TaxRateKey;
+import org.marceloleite.manager.model.job.Job;
 
 public class CommercialBuildingTaxRevenueCalculator implements BuildingTaxRevenueCalculator {
 
@@ -26,19 +26,22 @@ public class CommercialBuildingTaxRevenueCalculator implements BuildingTaxRevenu
 
 	@Override
 	public double calculate() {
-		LotType buildingLotType = building.getBuildingType().getLotTypeRequired();
-		PopulationDensity buildingLotDensity = building.getBuildingType().getLotDensityRequired();
-		Double taxRate = taxRates.get(new TaxRateKey(buildingLotType, buildingLotDensity));
 
-		List<Person> persons = building.getInhabitants().getPersons();
-		Double totalPayments = persons.stream().filter(Person::isEmployed).map(Person::getJob)
-				.map(Job::getJobOportunity).collect(Collectors.summingDouble(JobOportunity::getPayment));
+		Blueprint blueprint = building.getBlueprint();
+		BuildingType buildingType = blueprint.getBuildingType();
+		PopulationDensity populationDensity = blueprint.getPopulationDensity();
+		Double taxRate = taxRates.get(new TaxRateKey(buildingType, populationDensity));
+
+		Map<Long, Person> persons = building.getInhabitants().getPersons();
+		Double totalPayments = persons.values().stream().filter(Person::isEmployed).map(Person::getJob)
+				.collect(Collectors.summingDouble(Job::getPayment));
 
 		return totalPayments * taxRate;
 	}
 
 	@Override
-	public LotType forLotType() {
-		return LotType.COMMERCIAL;
+	public BuildingType forBuildingType() {
+		return BuildingType.COMMERCIAL;
 	}
+
 }

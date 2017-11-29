@@ -2,14 +2,11 @@ package org.marceloleite.manager.business.calculator;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Objects;
 
-import org.marceloleite.manager.model.Building;
+import org.marceloleite.manager.business.filter.OccupiedLotsFilter;
 import org.marceloleite.manager.model.CityMap;
 import org.marceloleite.manager.model.Lot;
-import org.marceloleite.manager.model.SchoolingLevel;
-import org.marceloleite.manager.model.job.Job;
 
 public class JobOportunitiesCalculator implements Calculator {
 
@@ -23,11 +20,12 @@ public class JobOportunitiesCalculator implements Calculator {
 	@Override
 	public double calculate() {
 
-		List<Lot> occupiedLots = cityMap.getLots().stream().filter(lot -> lot.getPlotGroup().isOccupied()).collect(Collectors.toList());
-		Stream<Map<SchoolingLevel, Job>> map = occupiedLots.stream().map(Lot::getBuilding).map(Building::getJobs);
-		/*return occupiedLots.stream().map(Lot::getBuilding).map(Building::getJobs).map(Jobs::getJobsList)
-				.flatMap(listJobs -> listJobs.stream()).filter(job -> job.getPerson() == null).count();*/
-		return 0.0;
+		
+		List<Lot> occupiedLots = new OccupiedLotsFilter(cityMap).filter();
+		
+		return occupiedLots.stream().map(lot -> lot.getBuilding().getJobs()).flatMap(jobsMap -> jobsMap.entrySet().stream())
+				.map(entry -> entry.getValue().getPersonGroup().getPersons()).flatMap(map -> map.entrySet().stream())
+				.map(Map.Entry::getValue).filter(Objects::isNull).count();
 	}
 
 }

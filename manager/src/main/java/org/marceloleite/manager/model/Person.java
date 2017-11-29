@@ -48,6 +48,10 @@ public class Person {
 	public void setHouse(Building house) {
 		this.house = house;
 	}
+	
+	public boolean isEmployed() {
+		return (job != null);
+	}
 
 	@Override
 	public String toString() {

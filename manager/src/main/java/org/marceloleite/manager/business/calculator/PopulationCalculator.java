@@ -1,47 +1,27 @@
 package org.marceloleite.manager.business.calculator;
 
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.Objects;
 
-import org.marceloleite.management.lot.Lot;
-import org.marceloleite.management.lot.LotType;
-import org.marceloleite.management.map.Slot;
-import org.marceloleite.management.map.Slots;
+import org.marceloleite.manager.business.filter.OccupiedLotsFilter;
+import org.marceloleite.manager.model.CityMap;
+import org.marceloleite.manager.model.Lot;
 
 public class PopulationCalculator implements Calculator {
 
-	private Slots slots;
+	private CityMap cityMap;
 
-	public PopulationCalculator(Slots slots) {
+	public PopulationCalculator(CityMap cityMap) {
 		super();
-		this.slots = slots;
+		this.cityMap = cityMap;
 	}
 
 	@Override
 	public double calculate() {
-		double population = 0;
-		Map<Long, Slot> slotsMap = slots.getSlotsMap();
-		Set<Long> slotIds = slotsMap.keySet();
-
-		Set<Entry<Long, Slot>> entrySet = slotsMap.entrySet();
-
-		Iterator<Entry<Long, Slot>> iterator = entrySet.iterator();
-		Entry<Long, Slot> next = iterator.next();
-		next.getKey();
-		next.getValue();
-
-		for (Long slotId : slotIds) {
-			Slot slot = slotsMap.get(slotId);
-			if (slot.isOccupied()) {
-				Lot lot = slot.getLot();
-				if (lot.isOccupied() && lot.getLotType() == LotType.RESIDENTIAL) {
-					population += lot.getBuilding().getInhabitants().getSize();
-				}
-			}
-		}
-
-		return population;
+		List<Lot> occupiedLots = new OccupiedLotsFilter(cityMap).filter();
+		return occupiedLots.stream().map(lot -> lot.getBuilding().getInhabitants().getPersons())
+				.flatMap(personsMap -> personsMap.entrySet().stream()).map(Map.Entry::getValue)
+				.filter(Objects::nonNull).count();
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.marceloleite.manager.builder.BudgetBuilder;
 import org.marceloleite.manager.business.BudgetBO;
 import org.marceloleite.manager.business.CityMapBO;
+import org.marceloleite.manager.business.PersonGroupBO;
 import org.marceloleite.manager.model.Blueprint;
 import org.marceloleite.manager.model.BlueprintName;
 import org.marceloleite.manager.model.Budget;
@@ -16,6 +17,7 @@ import org.marceloleite.manager.model.CityMap;
 import org.marceloleite.manager.model.Dimension;
 import org.marceloleite.manager.model.Lot;
 import org.marceloleite.manager.model.MapSize;
+import org.marceloleite.manager.model.Person;
 import org.marceloleite.manager.model.Position;
 import org.marceloleite.manager.studio.BlueprintStudio;
 
@@ -81,5 +83,13 @@ public class Manager {
 		lot.setBuilding(building);
 		new PlotGroupBO().occupy(lot.getPlotGroup());
 
+	}
+
+	public void putPersonOnResidence(Person person, Building building) {
+		PersonGroupBO personGroupBO = new PersonGroupBO();
+		if (personGroupBO.canAddPerson(building.getInhabitants())) {
+			throw new RuntimeException("Cannot put person on residence. Max inhabitants reached.");
+		}
+		personGroupBO.addPerson(building.getInhabitants(), person);
 	}
 }
